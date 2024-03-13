@@ -7,6 +7,9 @@ import (
 	"time"
 )
 
+// 模拟百度登陆 跳不过极验
+// sdfasfas123 zxcasdqwe123
+
 func main() {
 	options := []chromedp.ExecAllocatorOption{
 		chromedp.Flag("headless", false), // debug使用
@@ -19,18 +22,15 @@ func main() {
 
 	timeoutCtx, cancel := context.WithTimeout(chromeCtx, 20*time.Minute)
 	defer cancel()
-	link := "https://www.baidu.com/"
+	link := "https://www.o7c25b.com:8553/"
 	log.Printf("Chrome visit page %s\n", link)
 
 	var htmlContent string
 	err := chromedp.Run(timeoutCtx,
 		chromedp.Navigate(link),
-		chromedp.Click(`document.querySelector("#s-top-loginbtn")`, chromedp.ByJSPath),
-		chromedp.SendKeys(`#TANGRAM__PSP_11__userName`, "18737387054", chromedp.ByID),
-		chromedp.SendKeys(`#TANGRAM__PSP_11__password`, "18737387054.c", chromedp.ByID),
-		chromedp.Click(`document.querySelector("#TANGRAM__PSP_11__isAgree")`, chromedp.ByJSPath),
-		chromedp.Click(`document.querySelector("#TANGRAM__PSP_11__submit")`, chromedp.ByJSPath),
-		chromedp.OuterHTML(`document.querySelector("body")`, &htmlContent, chromedp.ByJSPath),
+		chromedp.SendKeys(`document.querySelector("#popoverCon > div:nth-child(1) > div > div > div > input")`, "sdfasfas123", chromedp.ByJSPath),
+		chromedp.SendKeys(`document.querySelector("#popoverCon > div:nth-child(1) > div > div > div > div.login_pwdBox__7FBSc > input")`, "zxcasdqwe123", chromedp.ByJSPath),
+		chromedp.Click(`document.querySelector("#popoverCon > div:nth-child(1) > div > div > div > div.image_imageContainer__i7Z8e.image_cover__hOzAW.login_loginBtn__lEAIQ > div")`, chromedp.ByJSPath),
 	)
 	log.Printf("err %s\n", err)
 	log.Printf("htmlContent %s\n", htmlContent)
